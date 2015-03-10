@@ -1,0 +1,43 @@
+{
+  "__type__": "Fire.TextureMeta",
+  "ver": 0,
+  "uuid": "5cf1a1ba-b508-445b-a4ea-70a0ed6763a9",
+  "subRawData": [
+    {
+      "asset": {
+        "__type__": "Fire.Sprite",
+        "_name": "gameover",
+        "_objFlags": 0,
+        "pivot": {
+          "__type__": "Fire.Vec2",
+          "x": 0.5,
+          "y": 0.5
+        },
+        "trimX": 45,
+        "trimY": 4,
+        "width": 159,
+        "height": 125,
+        "texture": {
+          "__uuid__": "5cf1a1ba-b508-445b-a4ea-70a0ed6763a9"
+        },
+        "rotated": false,
+        "x": 45,
+        "y": 4,
+        "rawWidth": 245,
+        "rawHeight": 132
+      },
+      "meta": {
+        "__type__": "Fire.SpriteMeta",
+        "ver": 0,
+        "uuid": "23242e83-63e4-4cf2-bd70-1e0b9a28a33d",
+        "atlasTag": "default",
+        "trimType": 0,
+        "trimThreshold": 1,
+        "rawTextureUuid": "5cf1a1ba-b508-445b-a4ea-70a0ed6763a9"
+      }
+    }
+  ],
+  "type": 1,
+  "wrapMode": 1,
+  "filterMode": 1
+}

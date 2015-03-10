@@ -1,0 +1,43 @@
+{
+  "__type__": "Fire.TextureMeta",
+  "ver": 0,
+  "uuid": "3425e94d-850d-443d-8a70-279c3ad0aed3",
+  "subRawData": [
+    {
+      "asset": {
+        "__type__": "Fire.Sprite",
+        "_name": "medals_3",
+        "_objFlags": 0,
+        "pivot": {
+          "__type__": "Fire.Vec2",
+          "x": 0.5,
+          "y": 0.5
+        },
+        "trimX": 0,
+        "trimY": 1,
+        "width": 44,
+        "height": 43,
+        "texture": {
+          "__uuid__": "3425e94d-850d-443d-8a70-279c3ad0aed3"
+        },
+        "rotated": false,
+        "x": 0,
+        "y": 1,
+        "rawWidth": 44,
+        "rawHeight": 44
+      },
+      "meta": {
+        "__type__": "Fire.SpriteMeta",
+        "ver": 0,
+        "uuid": "ad83f6d0-9478-4511-bbfe-2383f708caef",
+        "atlasTag": "default",
+        "trimType": 0,
+        "trimThreshold": 1,
+        "rawTextureUuid": "3425e94d-850d-443d-8a70-279c3ad0aed3"
+      }
+    }
+  ],
+  "type": 1,
+  "wrapMode": 1,
+  "filterMode": 1
+}
