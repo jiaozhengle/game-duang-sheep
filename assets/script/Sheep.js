@@ -1,7 +1,3 @@
-/**
- * Created by knox on 2015/3/11.
- */
-
 var SheepState = (function (t) {
     t[t.run = 0] = 'run';
     t[t.jump = 1] = 'jump';
@@ -26,7 +22,7 @@ Sheep.prop('gravity', 9.8);
 
 Sheep.prop('speed', 300);
 
-Sheep.prop('fLoorCoordinates', -130);
+Sheep.prop('fLoorCoordinates', -180);
 
 Sheep.prototype.onLoad = function () {
     this.anim = this.entity.getComponent(Fire.SpriteAnimation);
@@ -46,7 +42,7 @@ Sheep.prototype.onLoad = function () {
 Sheep.prototype.lateUpdate = function () {
 
     if(this.sheepState === SheepState.jump || this.sheepState === SheepState.drop) {
-        this.tempSpeed -= Fire.Time.deltaTime * 100 * this.gravity;
+        this.tempSpeed -= (Fire.Time.deltaTime * 100) * this.gravity;
     }
 
     switch (this.sheepState) {
@@ -68,7 +64,7 @@ Sheep.prototype.lateUpdate = function () {
             }
             break;
         case SheepState.down:
-            if (this.downAnimState && !this.anim.IsPlaying(this.downAnimState.name)) {
+            if (this.downAnimState && !this.anim.isPlaying(this.downAnimState.name)) {
                 this.anim.play(this.runAnimState, 0);
                 this.sheepState = SheepState.run;
             }
