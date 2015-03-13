@@ -1,12 +1,12 @@
 {
   "__type__": "Fire.TextureMeta",
   "ver": 0,
-  "uuid": "a2b8df2e-e83e-4837-8fb5-5519e3f0cd2f",
+  "uuid": "b7ab7956-5282-444b-bff4-22a09a014c2f",
   "subRawData": [
     {
       "asset": {
         "__type__": "Fire.Sprite",
-        "_name": "font_052",
+        "_name": "font_9",
         "_objFlags": 0,
         "pivot": {
           "__type__": "Fire.Vec2",
@@ -18,7 +18,7 @@
         "width": 24,
         "height": 36,
         "texture": {
-          "__uuid__": "a2b8df2e-e83e-4837-8fb5-5519e3f0cd2f"
+          "__uuid__": "b7ab7956-5282-444b-bff4-22a09a014c2f"
         },
         "rotated": false,
         "x": 0,
@@ -29,11 +29,11 @@
       "meta": {
         "__type__": "Fire.SpriteMeta",
         "ver": 0,
-        "uuid": "bf297758-0aca-499a-a695-14250e33fd90",
+        "uuid": "03cb91fb-6429-4700-89ac-d89d8aeb02e3",
         "atlasTag": "default",
         "trimType": 0,
         "trimThreshold": 1,
-        "rawTextureUuid": "a2b8df2e-e83e-4837-8fb5-5519e3f0cd2f"
+        "rawTextureUuid": "b7ab7956-5282-444b-bff4-22a09a014c2f"
       }
     }
   ],

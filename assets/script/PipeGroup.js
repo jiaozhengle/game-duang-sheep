@@ -9,6 +9,8 @@ var PipeGroup = Fire.extend(Fire.Component, function () {
     this.minSpacing = 250;
     //-- 上一次随机到的管道类型
     this.lastPipeType = null;
+    //-- 管道的宽度
+    this.pipeGroupWith = 0;
 });
 
 //-- 管道的类型
@@ -19,11 +21,10 @@ var PipeType = (function (t) {
     return t;
 })({});
 
+PipeGroup.prop('hasPassed', false);
+
 //-- 管道类型
 PipeGroup.prop('pipeType', PipeType.Top, Fire.Enum(PipeType));
-
-//-- 随机Pipe类型的概率
-PipeGroup.prototype.PipeTypeRange = [2];
 
 //-- 上方管子坐标范围 Max 与 Min
 PipeGroup.prototype.TopPipePosRange = new Fire.Vec2(1050, 710);
@@ -36,7 +37,7 @@ PipeGroup.prototype.randomPipeType = function () {
     if (randomVlue >= 0 && randomVlue <= 49) {
         return PipeType.Bottom;
     }
-    else if (randomVlue >= 50 && randomVlue <= 79) {
+    else if (randomVlue >= 50 && randomVlue <= 69) {
         return PipeType.Double;
     }
     else {
@@ -45,15 +46,19 @@ PipeGroup.prototype.randomPipeType = function () {
 }
 
 PipeGroup.prototype.create = function () {
-
-    if(this.lastPipeType !== null && this.lastPipeType === PipeType.Top){
-        while (this.lastPipeType === this.pipeType ) {
+    if (this.lastPipeType !== null && this.lastPipeType === PipeType.Top) {
+        while (this.lastPipeType === this.pipeType) {
             this.pipeType = this.randomPipeType();
         }
     }
     else {
         this.pipeType = this.randomPipeType();
+        //-- 为了体验，防止第一次出现的管道是上方的
+        while (this.lastPipeType === null && this.pipeType === PipeType.Top) {
+            this.pipeType = this.randomPipeType();
+        }
     }
+    this.entity.name = PipeType[this.pipeType];
     switch (this.pipeType) {
         case PipeType.Bottom:
             this.initBottomPipe();
@@ -71,6 +76,7 @@ PipeGroup.prototype.create = function () {
 
 PipeGroup.prototype.initTopPipe = function () {
     var topPipe = Fire.instantiate(Game.instance.pipe);
+    var topPipeRender = topPipe.getComponent(Fire.SpriteRenderer);
     var randomY = Math.randomRange(this.TopPipePosRange.x, this.TopPipePosRange.y);
 
     topPipe.parent = this.entity;
@@ -78,10 +84,13 @@ PipeGroup.prototype.initTopPipe = function () {
     topPipe.transform.y = randomY;
     topPipe.transform.scaleY = 1;
     topPipe.name = 'topPipe';
+
+    this.pipeGroupWith = topPipeRender.width;
 };
 
 PipeGroup.prototype.initBottomPipe = function () {
     var bottomPipe = Fire.instantiate(Game.instance.pipe);
+    var bottomPipeRender = bottomPipe.getComponent(Fire.SpriteRenderer);
     var randomY = Math.randomRange(this.BottomPipePosRange.x, this.BottomPipePosRange.y);
 
     bottomPipe.parent = this.entity;
@@ -89,6 +98,8 @@ PipeGroup.prototype.initBottomPipe = function () {
     bottomPipe.transform.y = randomY;
     bottomPipe.transform.scaleY = -1;
     bottomPipe.name = 'bottomPipe';
+
+    this.pipeGroupWith = bottomPipeRender.sprite.width;
 };
 
 PipeGroup.prototype.initDoublePipe = function () {
@@ -115,9 +126,6 @@ PipeGroup.prototype.initDoublePipe = function () {
             spacing = Math.abs(topY) + Math.abs(bottomY);
         }
     }
-    console.log(topY + "  " + bottomY);
-    console.log(spacing);
-
     topPipe.parent = this.entity;
     topPipe.transform.x = 0;
     topPipe.transform.y = randomTopY;
@@ -129,14 +137,16 @@ PipeGroup.prototype.initDoublePipe = function () {
     bottomPipe.transform.y = randomBottomY;
     bottomPipe.transform.scaleY = -1;
     bottomPipe.name = 'bottomPipe';
+
+    this.pipeGroupWith = bottomPipeRender.sprite.width;
 };
 
 PipeGroup.prototype.lateUpdate = function () {
-
     this.entity.transform.x -= Fire.Time.deltaTime * ( this.speed_ + Game.instance.speed );
 
     if (this.entity.transform.x < this.range_) {
         this.entity.destroy();
+        this.entity.dispatchEvent(new Fire.Event("destroy-PipeGroup", true));
     }
 };
 

@@ -8,7 +8,9 @@ var SheepState = (function (t) {
 })({});
 
 var Sheep = Fire.extend(Fire.Component, function () {
+    this.skyMaxY = 160;
     this.anim = null;
+    this.sheepSpritRender = 0;
     this.runAnimState = null;
     this.jumpAnimState = null;
     this.dropAnimState = null;
@@ -32,16 +34,20 @@ Sheep.prototype.onLoad = function () {
     this.downAnimState = this.anim.getAnimState('sheep_down');
     this.dieAnimState = this.anim.getAnimState('sheep_die');
 
+    this.sheepSpritRender = this.entity.getComponent(Fire.SpriteRenderer);
+
     Fire.Input.on('mouseup', function (event) {
-        this.anim.play(this.jumpAnimState, 0);
-        this.sheepState = SheepState.jump;
-        this.tempSpeed = this.speed;
+        if (this.entity.transform.y < this.skyMaxY) {
+            this.anim.play(this.jumpAnimState, 0);
+            this.sheepState = SheepState.jump;
+            this.tempSpeed = this.speed;
+        }
     }.bind(this));
 };
 
 Sheep.prototype.lateUpdate = function () {
 
-    if(this.sheepState === SheepState.jump || this.sheepState === SheepState.drop) {
+    if (this.sheepState === SheepState.jump || this.sheepState === SheepState.drop) {
         this.tempSpeed -= (Fire.Time.deltaTime * 100) * this.gravity;
     }
 
