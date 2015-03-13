@@ -1,12 +1,10 @@
-var Game = require('Game');
-
 var PipeGroup = Fire.extend(Fire.Component, function () {
     //-- 基础移动速度
     this.speed_ = 100;
     //-- ( Beyond this range will be destroyed ) 超出这个范围就会被销毁
     this.range_ = -600;
     //-- 最小间距
-    this.minSpacing = 250;
+    this.minSpacing = 200; //250;
     //-- 上一次随机到的管道类型
     this.lastPipeType = null;
     //-- 管道的宽度
@@ -30,18 +28,22 @@ PipeGroup.prop('pipeType', PipeType.Top, Fire.Enum(PipeType));
 PipeGroup.prototype.TopPipePosRange = new Fire.Vec2(1050, 710);
 
 //-- 下方管子坐标范围 Max 与 Min
-PipeGroup.prototype.BottomPipePosRange = new Fire.Vec2(-700, -980);
+PipeGroup.prototype.BottomPipePosRange = new Fire.Vec2(-800, -980);
+
+PipeGroup.prototype.onLoad = function () {
+    this.pipe = Fire.Entity.find('/Prefabs/pipe');
+};
 
 PipeGroup.prototype.randomPipeType = function () {
     var randomVlue = Math.floor(Math.random() * 100);
-    if (randomVlue >= 0 && randomVlue <= 49) {
-        return PipeType.Bottom;
+    if (randomVlue >= 0 && randomVlue <= 39) {
+        return PipeType.Double;
     }
     else if (randomVlue >= 50 && randomVlue <= 69) {
         return PipeType.Double;
     }
     else {
-        return PipeType.Top;
+        return PipeType.Double;
     }
 }
 
@@ -75,7 +77,7 @@ PipeGroup.prototype.create = function () {
 };
 
 PipeGroup.prototype.initTopPipe = function () {
-    var topPipe = Fire.instantiate(Game.instance.pipe);
+    var topPipe = Fire.instantiate(this.pipe);
     var topPipeRender = topPipe.getComponent(Fire.SpriteRenderer);
     var randomY = Math.randomRange(this.TopPipePosRange.x, this.TopPipePosRange.y);
 
@@ -89,7 +91,7 @@ PipeGroup.prototype.initTopPipe = function () {
 };
 
 PipeGroup.prototype.initBottomPipe = function () {
-    var bottomPipe = Fire.instantiate(Game.instance.pipe);
+    var bottomPipe = Fire.instantiate(this.pipe);
     var bottomPipeRender = bottomPipe.getComponent(Fire.SpriteRenderer);
     var randomY = Math.randomRange(this.BottomPipePosRange.x, this.BottomPipePosRange.y);
 
@@ -103,8 +105,8 @@ PipeGroup.prototype.initBottomPipe = function () {
 };
 
 PipeGroup.prototype.initDoublePipe = function () {
-    var topPipe = Fire.instantiate(Game.instance.pipe);
-    var bottomPipe = Fire.instantiate(Game.instance.pipe);
+    var topPipe = Fire.instantiate(this.pipe);
+    var bottomPipe = Fire.instantiate(this.pipe);
     var topPipeRender = topPipe.getComponent(Fire.SpriteRenderer);
     var bottomPipeRender = topPipe.getComponent(Fire.SpriteRenderer);
 
@@ -141,9 +143,8 @@ PipeGroup.prototype.initDoublePipe = function () {
     this.pipeGroupWith = bottomPipeRender.sprite.width;
 };
 
-PipeGroup.prototype.lateUpdate = function () {
-    this.entity.transform.x -= Fire.Time.deltaTime * ( this.speed_ + Game.instance.speed );
-
+PipeGroup.prototype.onRefresh = function (gameSpeed) {
+    this.entity.transform.x -= Fire.Time.deltaTime * ( this.speed_ + gameSpeed );
     if (this.entity.transform.x < this.range_) {
         this.entity.destroy();
         this.entity.dispatchEvent(new Fire.Event("destroy-PipeGroup", true));
