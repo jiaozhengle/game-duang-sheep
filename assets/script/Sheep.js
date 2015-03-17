@@ -37,10 +37,12 @@ Sheep.prototype.onLoad = function () {
     this.dieAnimState = this.anim.getAnimState('sheep_die');
 
     this.sheepSpritRender = this.entity.getComponent(Fire.SpriteRenderer);
+
+    this.dieRotation = -88;
 };
 
-
 Sheep.prototype.init = function (pos) {
+    this.entity.transform.rotation = 0;
     this.entity.transform.position = pos;
     this.anim.play(this.runAnimState, 0);
     this.sheepState = SheepState.run;
@@ -48,7 +50,7 @@ Sheep.prototype.init = function (pos) {
 
 Sheep.prototype.onRefresh = function () {
 
-    if (this.sheepState === SheepState.jump || this.sheepState === SheepState.drop) {
+    if (this.sheepState !== SheepState.run) {
         this.tempSpeed -= (Fire.Time.deltaTime * 100) * this.gravity;
     }
 
@@ -77,6 +79,13 @@ Sheep.prototype.onRefresh = function () {
             }
             break;
         case SheepState.die:
+            if (this.entity.transform.y > this.fLoorCoordinates) {
+                this.entity.transform.y += Fire.Time.deltaTime * this.tempSpeed;
+
+                if(this.entity.transform.y > 0){
+                    this.entity.transform.rotation = this.dieRotation;
+                }
+            }
             break;
         default:
             break;

@@ -2,6 +2,7 @@ var Sheep = require('Sheep');
 var Floor = require('Floor');
 var Collision = require('Collision');
 var GameOverWindow = require('GameOverWindow');
+var AudioControl = require('AudioControl');
 
 var GameState = (function (t) {
     t[t.ready = 0] = 'ready';
@@ -38,10 +39,11 @@ Game.prototype.onLoad = function () {
 
     this.gameOverWindow = Fire.Entity.find('/GameOverWindow');
 
+    this.bg = Fire.Entity.find('/bg').getComponent(Floor);
     this.floor = Fire.Entity.find('/floor').getComponent(Floor);
     this.sheep = Fire.Entity.find('/sheep').getComponent(Sheep);
 
-    Fire.Input.on('mouseup', function (event) {
+    Fire.Input.on('mousedown', function (event) {
         if (this.gameState === GameState.over) {
             return;
         }
@@ -49,6 +51,7 @@ Game.prototype.onLoad = function () {
         this.sheep.anim.play(this.sheep.jumpAnimState, 0);
         this.sheep.sheepState = Sheep.SheepState.jump;
         this.sheep.tempSpeed = this.sheep.speed;
+        AudioControl.playJump();
     }.bind(this));
 
     this.lastTime = 10;
@@ -63,6 +66,13 @@ Game.prototype.onLoad = function () {
     //-- 分数
     this.fraction = 0;
     this.fractionBtmpFont = Fire.Entity.find('/fraction').getComponent(Fire.BitmapText);
+
+    //-- 音效
+    AudioControl.init();
+};
+
+Game.prototype.onStart = function () {
+    this.reset();
 };
 
 Game.prototype.reset = function () {
@@ -80,20 +90,28 @@ Game.prototype.reset = function () {
     this.pipeGroupList = [];
     this.sheep.init(this.initSheepPos);
     this.gameState = GameState.run;
+    AudioControl.playReadyGameBg();
 };
 
 Game.prototype.update = function () {
+
+    //-- 绵羊的更新
+    this.sheep.onRefresh();
+
     switch (this.gameState) {
         case GameState.ready:
             break;
         case GameState.run:
             var gameOver = Collision.collisionDetection(this.sheep, this.pipeGroupList);
             if (gameOver) {
+                AudioControl.gameAuido.stop();
+                AudioControl.playHit();
                 this.sheep.anim.play(this.sheep.dieAnimState, 0);
                 this.sheep.sheepState = Sheep.SheepState.die;
                 this.gameState = GameState.over;
                 this.gameOverWindow.active = true;
                 this.gameOverWindow.getComponent(GameOverWindow).onRefresh();
+                AudioControl.gameOverAuido.play();
                 return;
             }
             //-- 每过一段时间创建管道
@@ -102,15 +120,15 @@ Game.prototype.update = function () {
                 this.lastTime = Fire.Time.time;
                 this.createPipeGroup();
             }
-            //-- 地板的更新
+            //-- 背景刷新
+            this.bg.onRefresh(this.gameSpeed);
+            //-- 地板刷新
             this.floor.onRefresh(this.gameSpeed);
-            //-- 绵羊的更新
-            this.sheep.onRefresh();
-            //-- 管道
+            //-- 管道刷新
             if (this.pipeGroupList && this.pipeGroupList.length > 0) {
                 var i = 0, len = this.pipeGroupList.length;
                 var pipeGroupEntity, pipeGropComp;
-                //-- 管道的更新
+                //-- 管道刷新
                 for (i = 0; i < len; ++i) {
                     pipeGroupEntity = this.pipeGroupList[i];
                     if (!pipeGroupEntity || pipeGroupEntity === undefined) {
@@ -132,6 +150,7 @@ Game.prototype.update = function () {
                         pipeGropComp.hasPassed = true;
                         this.fraction++;
                         this.fractionBtmpFont.text = this.fraction;
+                        AudioControl.playPoint();
                     }
                 }
             }

@@ -3,8 +3,10 @@ var PipeGroup = Fire.extend(Fire.Component, function () {
     this.speed_ = 100;
     //-- ( Beyond this range will be destroyed ) 超出这个范围就会被销毁
     this.range_ = -600;
+    //-- 最大间距
+    this.maxSpacing = 300;
     //-- 最小间距
-    this.minSpacing = 200; //250;
+    this.minSpacing = 210; //250;
     //-- 上一次随机到的管道类型
     this.lastPipeType = null;
     //-- 管道的宽度
@@ -25,25 +27,31 @@ PipeGroup.prop('hasPassed', false);
 PipeGroup.prop('pipeType', PipeType.Top, Fire.Enum(PipeType));
 
 //-- 上方管子坐标范围 Max 与 Min
-PipeGroup.prototype.TopPipePosRange = new Fire.Vec2(1050, 710);
+PipeGroup.prototype.TopPipePosRange = new Fire.Vec2(800, 710);
 
 //-- 下方管子坐标范围 Max 与 Min
-PipeGroup.prototype.BottomPipePosRange = new Fire.Vec2(-800, -980);
+PipeGroup.prototype.BottomPipePosRange = new Fire.Vec2(-750, -800);
+
+//-- 双个上方管子坐标范围 Max 与 Min
+PipeGroup.prototype.DoubleTopPipePosRange = new Fire.Vec2(1050, 710);
+
+//-- 双个下方管子坐标范围 Max 与 Min
+PipeGroup.prototype.DoubleBottomPipePosRange = new Fire.Vec2(-800, -980);
 
 PipeGroup.prototype.onLoad = function () {
     this.pipe = Fire.Entity.find('/Prefabs/pipe');
 };
 
 PipeGroup.prototype.randomPipeType = function () {
-    var randomVlue = Math.floor(Math.random() * 100);
-    if (randomVlue >= 0 && randomVlue <= 39) {
+    var randomVlue = Math.floor(Math.random() * 100) + 1;
+    if (randomVlue >= 1 && randomVlue <= 60) {
         return PipeType.Double;
     }
-    else if (randomVlue >= 50 && randomVlue <= 69) {
-        return PipeType.Double;
+    else if (randomVlue >= 60 && randomVlue <= 80) {
+        return PipeType.Bottom;
     }
     else {
-        return PipeType.Double;
+        return PipeType.Top;
     }
 }
 
@@ -56,9 +64,6 @@ PipeGroup.prototype.create = function () {
     else {
         this.pipeType = this.randomPipeType();
         //-- 为了体验，防止第一次出现的管道是上方的
-        while (this.lastPipeType === null && this.pipeType === PipeType.Top) {
-            this.pipeType = this.randomPipeType();
-        }
     }
     this.entity.name = PipeType[this.pipeType];
     switch (this.pipeType) {
@@ -116,9 +121,9 @@ PipeGroup.prototype.initDoublePipe = function () {
     var bottomY = 0;
     var spacing = 0;
 
-    while (spacing < this.minSpacing) {
-        randomTopY = Math.randomRange(this.TopPipePosRange.x, this.TopPipePosRange.y);
-        randomBottomY = Math.randomRange(this.BottomPipePosRange.x, this.BottomPipePosRange.y);
+    while (spacing < this.minSpacing || spacing > this.maxSpacing) {
+        randomTopY = Math.randomRange(this.DoubleTopPipePosRange.x, this.DoubleTopPipePosRange.y);
+        randomBottomY = Math.randomRange(this.DoubleBottomPipePosRange.x, this.DoubleBottomPipePosRange.y);
         topY = randomTopY - (topPipeRender.sprite.height / 2);
         bottomY = randomBottomY + (bottomPipeRender.sprite.height / 2);
         if (topY < 0 || bottomY > 0) {

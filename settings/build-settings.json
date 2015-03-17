@@ -1,0 +1,15 @@
+{
+  "projectName": "game-duang-sheep",
+  "defaultScene": "7b00e45f-d06f-4aa7-95dc-4d082f883bcd",
+  "sceneList": [
+    {
+      "name": "assets://\\Game.fire",
+      "value": "7b00e45f-d06f-4aa7-95dc-4d082f883bcd",
+      "checked": true,
+      "index": 0
+    }
+  ],
+  "isDebug": true,
+  "platform": "web-mobile",
+  "buildPath": "C:\\abitgame\\fireball/mobile-game-duang-sheep"
+}
