@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "gameoverbg",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 505,
+  "height": 361,
+  "wrapMode": 1,
+  "filterMode": 1
+}

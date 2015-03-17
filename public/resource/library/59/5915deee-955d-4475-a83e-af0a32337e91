@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "button_score",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 6,
+  "trimY": 3,
+  "width": 104,
+  "height": 58,
+  "texture": {
+    "__uuid__": "c2273bc0-b690-46c4-93d1-b67c6cc23c90"
+  },
+  "rotated": false,
+  "x": 6,
+  "y": 3,
+  "rawWidth": 116,
+  "rawHeight": 70
+}

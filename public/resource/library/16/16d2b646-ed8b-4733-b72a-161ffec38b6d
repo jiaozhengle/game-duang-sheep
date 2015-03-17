@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "land",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 336,
+  "height": 112,
+  "wrapMode": 1,
+  "filterMode": 1
+}

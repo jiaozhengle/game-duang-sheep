@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "blink_00",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 4,
+  "trimY": 5,
+  "width": 2,
+  "height": 2,
+  "texture": {
+    "__uuid__": "5755a742-a103-4f73-ad3d-68d18169648a"
+  },
+  "rotated": false,
+  "x": 4,
+  "y": 5,
+  "rawWidth": 10,
+  "rawHeight": 10
+}

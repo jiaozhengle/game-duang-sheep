@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "sheep_jump_05",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 29,
+  "trimY": 13,
+  "width": 147,
+  "height": 138,
+  "texture": {
+    "__uuid__": "2ed13760-34ec-487b-9397-289149462371"
+  },
+  "rotated": false,
+  "x": 29,
+  "y": 13,
+  "rawWidth": 228,
+  "rawHeight": 159
+}

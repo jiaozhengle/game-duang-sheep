@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "brand_copyright",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 2,
+  "trimY": 2,
+  "width": 122,
+  "height": 10,
+  "texture": {
+    "__uuid__": "a0f94bd0-2866-4b11-b8f3-c892987bccc6"
+  },
+  "rotated": false,
+  "x": 2,
+  "y": 2,
+  "rawWidth": 126,
+  "rawHeight": 14
+}

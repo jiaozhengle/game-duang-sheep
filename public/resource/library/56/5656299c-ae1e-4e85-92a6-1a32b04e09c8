@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "font_1",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 16,
+  "height": 44,
+  "wrapMode": 1,
+  "filterMode": 1
+}

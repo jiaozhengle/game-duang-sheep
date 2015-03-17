@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "pipe_down",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 0,
+  "trimY": 0,
+  "width": 52,
+  "height": 320,
+  "texture": {
+    "__uuid__": "402435bc-c509-4e6e-80e6-0bf2c2753e21"
+  },
+  "rotated": false,
+  "x": 0,
+  "y": 0,
+  "rawWidth": 52,
+  "rawHeight": 320
+}

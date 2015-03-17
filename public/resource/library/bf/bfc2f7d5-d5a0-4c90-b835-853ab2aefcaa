@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "bg_day",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 288,
+  "height": 512,
+  "wrapMode": 1,
+  "filterMode": 1
+}

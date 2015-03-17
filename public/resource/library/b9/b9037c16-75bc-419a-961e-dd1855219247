@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "text_game_over",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 6,
+  "trimY": 2,
+  "width": 192,
+  "height": 42,
+  "texture": {
+    "__uuid__": "15306f8a-8edf-41e5-9dac-c372408008e1"
+  },
+  "rotated": false,
+  "x": 6,
+  "y": 2,
+  "rawWidth": 204,
+  "rawHeight": 54
+}

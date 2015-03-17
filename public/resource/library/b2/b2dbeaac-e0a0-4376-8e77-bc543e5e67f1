@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "font_2",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 0,
+  "trimY": 4,
+  "width": 24,
+  "height": 36,
+  "texture": {
+    "__uuid__": "dea3a677-7142-4c04-892c-7328ec939dd4"
+  },
+  "rotated": false,
+  "x": 0,
+  "y": 4,
+  "rawWidth": 24,
+  "rawHeight": 44
+}

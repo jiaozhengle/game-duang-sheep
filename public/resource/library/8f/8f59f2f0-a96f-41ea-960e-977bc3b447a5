@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "score_panel",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 238,
+  "height": 126,
+  "wrapMode": 1,
+  "filterMode": 1
+}

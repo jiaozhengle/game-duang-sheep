@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "medals_0",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 44,
+  "height": 44,
+  "wrapMode": 1,
+  "filterMode": 1
+}

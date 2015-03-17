@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "land",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 0,
+  "trimY": 0,
+  "width": 336,
+  "height": 112,
+  "texture": {
+    "__uuid__": "16d2b646-ed8b-4733-b72a-161ffec38b6d"
+  },
+  "rotated": false,
+  "x": 0,
+  "y": 0,
+  "rawWidth": 336,
+  "rawHeight": 112
+}

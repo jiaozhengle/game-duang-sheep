@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "getready",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 24,
+  "trimY": 34,
+  "width": 352,
+  "height": 63,
+  "texture": {
+    "__uuid__": "7bb7d9b4-c29f-4113-920e-cf0d813f5d8e"
+  },
+  "rotated": false,
+  "x": 24,
+  "y": 34,
+  "rawWidth": 405,
+  "rawHeight": 134
+}
