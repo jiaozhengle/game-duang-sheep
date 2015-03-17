@@ -1,5 +1,5 @@
 var Floor = Fire.extend(Fire.Component);
-
+//speed
 Floor.prop('speed', 300);
 
 Floor.prop('x', -858);
