@@ -91,6 +91,8 @@ Game.prototype.reset = function () {
     this.sheep.init(this.initSheepPos);
     this.gameState = GameState.run;
     AudioControl.playReadyGameBg();
+    AudioControl.gameOverAuido.stop();
+    AudioControl.hitAuido.stop();
 };
 
 Game.prototype.update = function () {
@@ -105,13 +107,13 @@ Game.prototype.update = function () {
             var gameOver = Collision.collisionDetection(this.sheep, this.pipeGroupList);
             if (gameOver) {
                 AudioControl.gameAuido.stop();
+                AudioControl.gameOverAuido.play();
                 AudioControl.playHit();
                 this.sheep.anim.play(this.sheep.dieAnimState, 0);
                 this.sheep.sheepState = Sheep.SheepState.die;
                 this.gameState = GameState.over;
                 this.gameOverWindow.active = true;
                 this.gameOverWindow.getComponent(GameOverWindow).onRefresh();
-                AudioControl.gameOverAuido.play();
                 return;
             }
             //-- 每过一段时间创建管道

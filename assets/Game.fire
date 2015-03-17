@@ -4,7 +4,7 @@
     "_observing": false,
     "_name": "",
     "_objFlags": 0,
-    "dirty": false,
+    "dirty": true,
     "entities": [
       {
         "__id__": 1
@@ -214,15 +214,13 @@
     "_position": {
       "__type__": "Fire.Vec2",
       "x": 0,
-      "y": 0,
-      "_iN$t": null
+      "y": 0
     },
     "_rotation": 0,
     "_scale": {
       "__type__": "Fire.Vec2",
       "x": 1,
-      "y": 1,
-      "_iN$t": null
+      "y": 1
     }
   },
   {
@@ -241,8 +239,7 @@
       "r": 1,
       "g": 1,
       "b": 1,
-      "a": 1,
-      "_iN$t": null
+      "a": 1
     },
     "customSize_": false,
     "width_": 100,
