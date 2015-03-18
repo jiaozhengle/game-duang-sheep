@@ -4,7 +4,7 @@
     "_observing": false,
     "_name": "",
     "_objFlags": 0,
-    "dirty": false,
+    "dirty": true,
     "entities": [
       {
         "__id__": 1
@@ -95,7 +95,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 0
+    "_size": 576
   },
   {
     "__type__": "Fire.Entity",
@@ -151,7 +151,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 411.0049683677239
+    "_size": 378
   },
   {
     "__type__": "Fire.Entity",
