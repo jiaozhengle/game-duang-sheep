@@ -1,1 +1,7 @@
-{"scenes":{"Game":"7b00e45f-d06f-4aa7-95dc-4d082f883bcd"},"launchScene":"Game"}
+{
+    "scenes": {
+        "MainMenu": "50b25f33-f873-461c-8e75-56f1693eb63e",
+        "Game": "7b00e45f-d06f-4aa7-95dc-4d082f883bcd"
+    },
+    "launchScene": "MainMenu"
+}

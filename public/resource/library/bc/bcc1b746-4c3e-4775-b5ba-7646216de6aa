@@ -1,0 +1,22 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "fx_downfog01",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 29,
+  "trimY": 35,
+  "width": 135,
+  "height": 49,
+  "texture": {
+    "__uuid__": "6cdf5415-87a6-4b5c-a7bb-38c92f2b6fdf"
+  },
+  "rotated": false,
+  "x": 29,
+  "y": 35,
+  "rawWidth": 196,
+  "rawHeight": 102
+}

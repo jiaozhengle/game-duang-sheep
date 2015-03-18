@@ -1,0 +1,32 @@
+{
+  "__type__": "Fire.SpriteAnimationClip",
+  "_name": "yellowBird",
+  "_objFlags": 0,
+  "wrapMode": 2,
+  "stopAction": 0,
+  "speed": 1,
+  "_frameRate": 60,
+  "frameInfos": [
+    {
+      "__type__": "FrameInfo",
+      "sprite": {
+        "__uuid__": "85c1547d-1fac-4eda-a175-9e78614a0044"
+      },
+      "frames": 5
+    },
+    {
+      "__type__": "FrameInfo",
+      "sprite": {
+        "__uuid__": "1b72548b-8560-42f1-aba6-70aad5dc881e"
+      },
+      "frames": 5
+    },
+    {
+      "__type__": "FrameInfo",
+      "sprite": {
+        "__uuid__": "48542f59-7d3b-473e-90e5-cb49de638848"
+      },
+      "frames": 5
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "fx_downfog03",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 196,
+  "height": 102,
+  "wrapMode": 1,
+  "filterMode": 1
+}
