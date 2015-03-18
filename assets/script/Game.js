@@ -20,21 +20,24 @@ Game.GameState = GameState;
 
 Game.instance = null;
 
-Game.prop('tempMask', null, Fire.ObjectType(Fire.Entity));
-
-Game.prop('createPipeTime', 5);
-
-Game.prop('gameSpeed', 0);
-
 //-- 绵羊初始X坐标
 Game.prop('initSheepPos', new Fire.Vec2(-150, -180), Fire.ObjectType(Fire.Vec2));
 
 //-- 创建时管道初始X坐标
 Game.prop('initPipeGroupPos', new Fire.Vec2(600, 0), Fire.ObjectType(Fire.Vec2));
 
-Game.prop('pipeGroup', null, Fire.ObjectType(Fire.Entity));
+Game.prop('createPipeTime', 5);
+
+Game.prop('gameSpeed', 0);
 
 Game.prototype.onLoad = function () {
+
+    this.fogJumpEffect = Fire.Entity.find('/Prefabs/fog_1');
+    this.tempAddFractionEff = Fire.Entity.find('/Prefabs/addFraction');
+    this.tempMask = Fire.Entity.find('/Prefabs/mask');
+
+    this.pipeGroup = Fire.Entity.find('/Game/PipeGroup');
+
     //-- 游戏状态
     this.gameState = GameState.run;
 
@@ -45,14 +48,13 @@ Game.prototype.onLoad = function () {
     this.sheep = Fire.Entity.find('/sheep').getComponent(Sheep);
 
     this.mask = Fire.Entity.find('/mask');
-    if(!this.mask){
+    if (!this.mask) {
         this.mask = Fire.instantiate(this.tempMask);
         this.mask.name = 'mask';
         this.mask.dontDestroyOnLoad = true;
     }
     this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
 
-    this.fogJumpEffect = Fire.Entity.find('/Prefabs/fog_1');
 
     Fire.Input.on('mousedown', function (event) {
         if (this.gameState === GameState.over) {
@@ -62,7 +64,8 @@ Game.prototype.onLoad = function () {
         this.sheep.anim.play(this.sheep.jumpAnimState, 0);
         this.sheep.sheepState = Sheep.SheepState.jump;
         this.sheep.tempSpeed = this.sheep.speed;
-        AudioControl.playJump();
+        AudioControl.jumpAuido.stop();
+        AudioControl.jumpAuido.play();
 
         var pos = new Vec2(this.sheep.transform.x - 80, this.sheep.transform.y + 10);
         Effect.create(this.fogJumpEffect, pos);
@@ -83,6 +86,9 @@ Game.prototype.onLoad = function () {
 
     //-- 音效
     AudioControl.init();
+
+    //-- 特效
+    Effect.init();
 };
 
 Game.prototype.onStart = function () {
@@ -132,7 +138,7 @@ Game.prototype.update = function () {
             if (gameOver) {
                 AudioControl.gameAuido.stop();
                 AudioControl.gameOverAuido.play();
-                AudioControl.playHit();
+                AudioControl.hitAuido.play();
                 this.sheep.anim.play(this.sheep.dieAnimState, 0);
                 this.sheep.sheepState = Sheep.SheepState.die;
                 this.gameState = GameState.over;
@@ -176,7 +182,9 @@ Game.prototype.update = function () {
                         pipeGropComp.hasPassed = true;
                         this.fraction++;
                         this.fractionBtmpFont.text = this.fraction;
-                        AudioControl.playPoint();
+                        var initPos = new Vec2(this.sheep.transform.x - 30, this.sheep.transform.y + 50);
+                        Effect.createManuallyEffectUpMove(this.tempAddFractionEff, initPos, 100);
+                        AudioControl.pointAuido.play();
                     }
                 }
             }
@@ -192,6 +200,9 @@ Game.prototype.update = function () {
         default :
             break;
     }
+
+    //-- 特效刷新
+    Effect.onRefresh();
 };
 
 //-- 创建管道组

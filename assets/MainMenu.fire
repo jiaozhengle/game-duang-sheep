@@ -133,7 +133,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 677
+    "_size": 3025.6135698995727
   },
   {
     "__type__": "Fire.Entity",
@@ -822,7 +822,7 @@
     "_enabled": true,
     "_position": {
       "__type__": "Fire.Vec2",
-      "x": 1000,
+      "x": 2000,
       "y": 0
     },
     "_rotation": 0,
