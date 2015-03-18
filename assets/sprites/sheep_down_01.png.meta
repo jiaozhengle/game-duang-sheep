@@ -1,0 +1,43 @@
+{
+  "__type__": "Fire.TextureMeta",
+  "ver": 0,
+  "uuid": "d8d458cd-2c5b-404f-9d9d-3e2f53f48c56",
+  "subRawData": [
+    {
+      "asset": {
+        "__type__": "Fire.Sprite",
+        "_name": "sheep_down_01",
+        "_objFlags": 0,
+        "pivot": {
+          "__type__": "Fire.Vec2",
+          "x": 0.5,
+          "y": 0.5
+        },
+        "trimX": 2,
+        "trimY": 61,
+        "width": 224,
+        "height": 87,
+        "texture": {
+          "__uuid__": "d8d458cd-2c5b-404f-9d9d-3e2f53f48c56"
+        },
+        "rotated": false,
+        "x": 2,
+        "y": 61,
+        "rawWidth": 228,
+        "rawHeight": 159
+      },
+      "meta": {
+        "__type__": "Fire.SpriteMeta",
+        "ver": 0,
+        "uuid": "f71d8d7f-ab60-4e7b-8ae7-dba4a199fdd9",
+        "atlasTag": "default",
+        "trimType": 0,
+        "trimThreshold": 1,
+        "rawTextureUuid": "d8d458cd-2c5b-404f-9d9d-3e2f53f48c56"
+      }
+    }
+  ],
+  "type": 1,
+  "wrapMode": 1,
+  "filterMode": 1
+}
