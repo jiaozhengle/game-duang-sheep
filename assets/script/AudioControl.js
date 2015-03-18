@@ -18,6 +18,10 @@ AudioControl.playJump = function () {
 AudioControl.playReadyGameBg = function () {
     this.readyAuido.play();
     this.readyAuido.onEnd = function () {
+        var Game = require('Game');
+        if(Game.instance.gameState === Game.GameState.over){
+            return;
+        }
         this.gameAuido.loop = true;
         this.gameAuido.play();
     }.bind(this);

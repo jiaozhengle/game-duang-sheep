@@ -1,4 +1,7 @@
+var Effect = require('Effect');
+
 var SheepState = (function (t) {
+    t[t.none = 0] = 'none',
     t[t.run = 0] = 'run';
     t[t.jump = 1] = 'jump';
     t[t.drop = 2] = 'drop';
@@ -37,8 +40,9 @@ Sheep.prototype.onLoad = function () {
     this.dieAnimState = this.anim.getAnimState('sheep_die');
 
     this.sheepSpritRender = this.entity.getComponent(Fire.SpriteRenderer);
-
     this.dieRotation = -88;
+
+    this.fogDownEffect = Fire.Entity.find('/Prefabs/fog_2');
 };
 
 Sheep.prototype.init = function (pos) {
@@ -68,6 +72,10 @@ Sheep.prototype.onRefresh = function () {
             this.entity.transform.y += Fire.Time.deltaTime * this.tempSpeed;
             if (this.entity.transform.y <= this.fLoorCoordinates) {
                 this.entity.transform.y = this.fLoorCoordinates;
+
+                var pos = new Vec2(this.entity.transform.x, this.entity.transform.y - 30);
+                Effect.create(this.fogDownEffect, pos);
+
                 this.anim.play(this.downAnimState, 0);
                 this.sheepState = SheepState.down;
             }
@@ -81,10 +89,11 @@ Sheep.prototype.onRefresh = function () {
         case SheepState.die:
             if (this.entity.transform.y > this.fLoorCoordinates) {
                 this.entity.transform.y += Fire.Time.deltaTime * this.tempSpeed;
-
-                if(this.entity.transform.y > 0){
-                    this.entity.transform.rotation = this.dieRotation;
-                }
+            }
+            else{
+                var pos = new Vec2(this.entity.transform.x, this.entity.transform.y - 30);
+                Effect.create(this.fogDownEffect, pos);
+                this.sheepState = SheepState.none;
             }
             break;
         default:

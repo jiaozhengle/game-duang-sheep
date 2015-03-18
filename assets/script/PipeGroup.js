@@ -4,9 +4,9 @@ var PipeGroup = Fire.extend(Fire.Component, function () {
     //-- ( Beyond this range will be destroyed ) 超出这个范围就会被销毁
     this.range_ = -600;
     //-- 最大间距
-    this.maxSpacing = 300;
+    this.maxSpacing = 250;//280;
     //-- 最小间距
-    this.minSpacing = 210; //250;
+    this.minSpacing = 222; //250;
     //-- 上一次随机到的管道类型
     this.lastPipeType = null;
     //-- 管道的宽度

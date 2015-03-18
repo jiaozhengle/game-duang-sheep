@@ -13,9 +13,9 @@ GameOverWindow.prototype.onRefresh = function () {
     var scoreValue = this.score.getComponent(Fire.BitmapText);
     scoreValue.text = Game.instance.fraction;
     this.btn_play.on('mouseup', function () {
-        Game.instance.reset();
         scoreValue.text = "0";
         this.entity.active = false;
+        Game.instance.mask.active = true;
     }.bind(this));
     this.title.transform.position = new Fire.Vec2(0, 250);
     this.panel.transform.position = new Fire.Vec2(0, -200);
