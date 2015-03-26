@@ -1,10 +1,8 @@
 [
   {
     "__type__": "Fire.Scene",
-    "_observing": false,
     "_name": "",
     "_objFlags": 0,
-    "dirty": true,
     "entities": [
       {
         "__id__": 1
@@ -152,7 +150,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 378,
+    "_size": 341,
     "_contentStrategy": 1
   },
   {
@@ -2028,7 +2026,7 @@
     "_enabled": true,
     "_playbackRate": 1,
     "_clip": {
-      "__uuid__": "c78144a3-b9a6-47ca-96bb-cc83127a64a1"
+      "__uuid__": "212c973b-3131-420c-bed5-41c5edc03b8b"
     },
     "_loop": false,
     "_mute": false,
@@ -2202,7 +2200,7 @@
     "_enabled": true,
     "_playbackRate": 1,
     "_clip": {
-      "__uuid__": "3d399e48-64f3-449b-8d34-5233e14c12a4"
+      "__uuid__": "439e1139-4ed9-4669-845a-a7d679c0bc02"
     },
     "_loop": false,
     "_mute": false,
@@ -2260,7 +2258,7 @@
     "_enabled": true,
     "_playbackRate": 1,
     "_clip": {
-      "__uuid__": "6f2ecabe-11cc-4c69-aa5d-656d574955bc"
+      "__uuid__": "f643a518-2b45-4ed9-b9b4-8bec257179e1"
     },
     "_loop": false,
     "_mute": false,
@@ -2318,7 +2316,7 @@
     "_enabled": true,
     "_playbackRate": 1,
     "_clip": {
-      "__uuid__": "d33fe53e-e0ee-4ade-a01d-9935a0c7d41a"
+      "__uuid__": "301a3ccd-a3e0-41c2-a0e1-a4a85709e083"
     },
     "_loop": false,
     "_mute": false,
@@ -2376,7 +2374,7 @@
     "_enabled": true,
     "_playbackRate": 1,
     "_clip": {
-      "__uuid__": "080cc019-5cb7-42d0-85fb-11c4fb60a61e"
+      "__uuid__": "ebe99e2b-378e-4218-83c8-7c1df43df099"
     },
     "_loop": false,
     "_mute": false,
