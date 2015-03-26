@@ -4,7 +4,7 @@
     "_observing": false,
     "_name": "MainMenu",
     "_objFlags": 0,
-    "dirty": false,
+    "dirty": true,
     "entities": [
       {
         "__id__": 1
@@ -74,7 +74,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 480,
+    "_size": 576,
     "_contentStrategy": 1
   },
   {
