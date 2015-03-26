@@ -1,10 +1,1 @@
-{
-  "__type__": "Fire.Texture",
-  "_name": "fx_fog05",
-  "_objFlags": 0,
-  "_rawext": "png",
-  "width": 341,
-  "height": 161,
-  "wrapMode": 1,
-  "filterMode": 1
-}
+{"__type__":"Fire.Texture","_name":"fx_fog05","_objFlags":0,"_rawext":"png","width":341,"height":161,"wrapMode":1,"filterMode":1}

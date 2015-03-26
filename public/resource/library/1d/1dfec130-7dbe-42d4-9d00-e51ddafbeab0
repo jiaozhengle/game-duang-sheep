@@ -1,10 +1,1 @@
-{
-  "__type__": "Fire.Texture",
-  "_name": "font-number2_0",
-  "_objFlags": 0,
-  "_rawext": "png",
-  "width": 100,
-  "height": 50,
-  "wrapMode": 1,
-  "filterMode": 1
-}
+{"__type__":"Fire.Texture","_name":"font-number2_0","_objFlags":0,"_rawext":"png","width":100,"height":50,"wrapMode":1,"filterMode":1}

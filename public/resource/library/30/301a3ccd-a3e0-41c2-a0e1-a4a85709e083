@@ -1,6 +1,1 @@
-{
-  "__type__": "Fire.AudioClip",
-  "_name": "SheepBleat_01",
-  "_objFlags": 0,
-  "_rawext": "mp3"
-}
+{"__type__":"Fire.AudioClip","_name":"SheepBleat_01","_objFlags":0,"_rawext":"mp3"}

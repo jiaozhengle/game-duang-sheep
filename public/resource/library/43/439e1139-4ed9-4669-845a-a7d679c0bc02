@@ -1,6 +1,1 @@
-{
-  "__type__": "Fire.AudioClip",
-  "_name": "Tag_Black",
-  "_objFlags": 0,
-  "_rawext": "mp3"
-}
+{"__type__":"Fire.AudioClip","_name":"Tag_Black","_objFlags":0,"_rawext":"mp3"}
