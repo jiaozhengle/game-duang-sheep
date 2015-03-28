@@ -1,8 +1,10 @@
 [
   {
     "__type__": "Fire.Scene",
+    "_observing": false,
     "_name": "",
     "_objFlags": 0,
+    "dirty": true,
     "entities": [
       {
         "__id__": 1
@@ -93,7 +95,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 480,
+    "_size": 576,
     "_contentStrategy": 1
   },
   {
@@ -150,7 +152,7 @@
       "b": 0,
       "a": 1
     },
-    "_size": 341,
+    "_size": 378,
     "_contentStrategy": 1
   },
   {
