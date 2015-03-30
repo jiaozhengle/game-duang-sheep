@@ -1,104 +1,154 @@
-var Effect = require('Effect');
-
-var SheepState = (function (t) {
-    t[t.none = 0] = 'none',
-    t[t.run = 0] = 'run';
-    t[t.jump = 1] = 'jump';
-    t[t.drop = 2] = 'drop';
-    t[t.down = 3] = 'down';
-    t[t.die = 4] = 'die'
-    return t;
-})({});
-
-var Sheep = Fire.extend(Fire.Component, function () {
-    this.skyMaxY = 250;//160;
-    this.anim = null;
-    this.sheepSpritRender = 0;
-    this.runAnimState = null;
-    this.jumpAnimState = null;
-    this.dropAnimState = null;
-    this.downAnimState = null;
-    this.dieAnimState = null;
-    this.sheepState = SheepState.run;
-    this.tempSpeed = 0;
+//-- 绵羊状态
+var State = Fire.defineEnum({
+    None   : -1,
+    Run    : -1,
+    Jump   : -1,
+    Drop   : -1,
+    DropEnd: -1,
+    Dead   : -1
 });
 
-Sheep.SheepState = SheepState;
+var Sheep = Fire.Class({
+    // 继承
+    extends: Fire.Component,
+    // 构造函数
+    constructor: function () {
+        // 当前播放动画组件
+        this.anim = null;
+        // 当前速度
+        this.currentSpeed = 0;
+        // 绵羊图片渲染
+        this.renderer = null;
+        // 跳跃事件
+        this.jumpEvent = null;
+    },
+    // 属性
+    properties: {
+        // 初始坐标
+        initSheepPos:{
+            default: new Fire.Vec2(-150, -180),
+            type: Fire.Vec2
+        },
+        // Y轴最大高度
+        maxY: 250,
+        // 地面高度
+        groundY: -170,
+        // 重力
+        gravity: 9.8,
+        // 起跳速度
+        initSpeed: 500,
+        // 绵羊状态
+        _state: {
+            default: State.Run,
+            type: State,
+            visible: false
+        },
+        state: {
+            get: function () {
+                return this._state;
+            },
+            set: function(value){
+                if (value !== this._state) {
+                    this._state = value;
+                    if (this._state !== State.None) {
+                        var animName = State[this._state];
+                        this.anim.play(animName);
+                    }
+                }
+            },
+            type: State
+        },
+        // 获取Jump音效
+        jumpAudio: {
+            default: null,
+            type: Fire.AudioSource
+        },
+        // 获取Jump特效
+        jumpEffect: {
+            default: null,
+            type: Fire.Entity
+        },
+        dropEndEffect: {
+            default: null,
+            type: Fire.Entity
+        }
+    },
+    // 初始化
+    onLoad: function () {
+        this.anim = this.getComponent(Fire.SpriteAnimation);
+        this.renderer = this.getComponent(Fire.SpriteRenderer);
+        this.transform.position = this.initSheepPos;
+        // 添加绵羊控制事件(为了注销事件缓存事件)
+        this.jumpEvent = function (event) {
+            if (this.state !== State.Dead) {
+                this._jump();
+            }
+        }.bind(this);
+        Fire.Input.on('mousedown', this.jumpEvent);
+    },
+    // 删除
+    onDestroy: function () {
+        // 注销绵羊控制事件
+        Fire.Input.off('mousedown', this.jumpEvent);
+    },
+    // 更新
+    update: function () {
+        this._updateState();
+        this._updateTransform();
+    },
+    // 更新绵羊状态
+    _updateState: function () {
+        switch (this.state) {
+            case Sheep.State.Jump:
+                if (this.currentSpeed < 0) {
+                    this.state = State.Drop;
+                }
+                break;
+            case Sheep.State.Drop:
+                if (this.transform.y <= this.groundY) {
+                    this.transform.y = this.groundY;
+                    this.state = State.DropEnd;
+                    // 播放灰尘特效
+                    var pos = new Vec2(this.transform.x, this.transform.y - 30);
+                    this._playEffect(this.dropEndEffect, pos);
+                }
+                break;
+            case Sheep.State.DropEnd:
+                if (!this.anim.isPlaying('dropEnd')) {
+                    this.state = State.Run;
+                }
+                break
+            default:
+                break;
+        }
+    },
+    // 更新绵羊坐标
+    _updateTransform: function () {
+        var flying = this.state === Sheep.State.Jump || this.transform.y > this.groundY;
+        if (flying) {
+            this.currentSpeed -= (Fire.Time.deltaTime * 100) * this.gravity;
+            this.transform.y += Fire.Time.deltaTime * this.currentSpeed;
+        }
+    },
+    // 开始跳跃设置状态数据，播放动画
+    _jump: function () {
+        this.state = State.Jump;
+        this.currentSpeed = this.initSpeed;
 
-Sheep.prop('gravity', 9.8);
-
-Sheep.prop('speed', 300);
-
-Sheep.prop('fLoorCoordinates', -180);
-
-Sheep.prototype.onLoad = function () {
-    this.anim = this.entity.getComponent(Fire.SpriteAnimation);
-    this.runAnimState = this.anim.getAnimState('sheep_run');
-    this.jumpAnimState = this.anim.getAnimState('sheep_jump');
-    this.dropAnimState = this.anim.getAnimState('sheep_drop');
-    this.downAnimState = this.anim.getAnimState('sheep_down');
-    this.dieAnimState = this.anim.getAnimState('sheep_die');
-
-    this.sheepSpritRender = this.entity.getComponent(Fire.SpriteRenderer);
-    this.dieRotation = -88;
-
-    this.fogDownEffect = Fire.Entity.find('/Prefabs/fog_2');
-};
-
-Sheep.prototype.init = function (pos) {
-    this.entity.transform.rotation = 0;
-    this.entity.transform.position = pos;
-    this.anim.play(this.runAnimState, 0);
-    this.sheepState = SheepState.run;
-};
-
-Sheep.prototype.onRefresh = function () {
-
-    if (this.sheepState !== SheepState.run) {
-        this.tempSpeed -= (Fire.Time.deltaTime * 100) * this.gravity;
+        // 播放跳音效
+        this.jumpAudio.stop();
+        this.jumpAudio.play();
+        // 播放灰尘特效
+        var pos = new Vec2(this.transform.x - 80, this.transform.y + 10);
+        this._playEffect(this.jumpEffect, pos);
+    },
+    //
+    _playEffect: function(tempEffect, pos) {
+        var effect = Fire.instantiate(tempEffect);
+        effect.transform.position = pos;
+        var effectAnim = effect.getComponent(Fire.SpriteAnimation);
+        effectAnim.play();
     }
+});
 
-    switch (this.sheepState) {
-        case SheepState.run:
-            break;
-        case SheepState.jump:
-            this.entity.transform.y += Fire.Time.deltaTime * this.tempSpeed;
-            if (this.tempSpeed < 0) {
-                this.anim.play(this.dropAnimState, 0);
-                this.sheepState = SheepState.drop;
-            }
-            break;
-        case SheepState.drop:
-            this.entity.transform.y += Fire.Time.deltaTime * this.tempSpeed;
-            if (this.entity.transform.y <= this.fLoorCoordinates) {
-                this.entity.transform.y = this.fLoorCoordinates;
-
-                var pos = new Vec2(this.entity.transform.x, this.entity.transform.y - 30);
-                Effect.create(this.fogDownEffect, pos);
-
-                this.anim.play(this.downAnimState, 0);
-                this.sheepState = SheepState.down;
-            }
-            break;
-        case SheepState.down:
-            if (this.downAnimState && !this.anim.isPlaying(this.downAnimState.name)) {
-                this.anim.play(this.runAnimState, 0);
-                this.sheepState = SheepState.run;
-            }
-            break;
-        case SheepState.die:
-            if (this.entity.transform.y > this.fLoorCoordinates) {
-                this.entity.transform.y += Fire.Time.deltaTime * this.tempSpeed;
-            }
-            else{
-                var pos = new Vec2(this.entity.transform.x, this.entity.transform.y - 30);
-                Effect.create(this.fogDownEffect, pos);
-                this.sheepState = SheepState.none;
-            }
-            break;
-        default:
-            break;
-    }
-};
-
-module.exports = Sheep;
+Sheep.State = State;
