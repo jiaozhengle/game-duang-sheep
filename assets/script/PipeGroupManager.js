@@ -61,7 +61,10 @@ var PipeGroupManager = Fire.Class({
             var pipe = pipeGroupEntity.find('topPipe');
             var pipeRender = pipe.getComponent(Fire.SpriteRenderer)
             var pipeRect = pipeRender.getWorldBounds();
-
+						
+          	// 降低难度
+          	pipeRect.y += 50;
+          
             if (Fire.Intersection.rectRect(sheepRect, pipeRect)) {
                 return true;
             }
@@ -70,7 +73,9 @@ var PipeGroupManager = Fire.Class({
             pipe = pipeGroupEntity.find('bottomPipe');
             pipeRender = pipe.getComponent(Fire.SpriteRenderer);
             pipeRect = pipeRender.getWorldBounds();
-
+          	
+          	// 降低难度
+          	pipeRect.y -= 50;
             if (Fire.Intersection.rectRect(sheepRect, pipeRect)) {
                 return true;
             }

@@ -49,7 +49,7 @@ var MainMenu = Fire.Class({
         this.maskRender.color.a = 1;
         this.fadeInGame = false;
         
-        Fire.Engine.preloadScene('Game');
+        //Fire.Engine.preloadScene('Game');
     },
     lateUpdate: function () {
         if (this.mask.active) {
