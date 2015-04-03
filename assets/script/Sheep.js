@@ -25,10 +25,7 @@ var Sheep = Fire.Class({
     // 属性
     properties: {
         // 初始坐标
-        initSheepPos:{
-            default: new Fire.Vec2(-150, -180),
-            type: Fire.Vec2
-        },
+        initSheepPos: new Fire.Vec2(-150, -180),
         // Y轴最大高度
         maxY: 250,
         // 地面高度

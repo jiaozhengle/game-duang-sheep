@@ -7,7 +7,7 @@ var MainMenu = Fire.Class({
     constructor: function () {
         this.mask = null;
         this.maskRender = null;
-        this.goToGame = false;
+        this.fadeInGame = false;
     },
     // 属性
     properties: {
@@ -34,7 +34,7 @@ var MainMenu = Fire.Class({
     },
     onLoad: function () {
         this.btn_play.on('mouseup', function () {
-            this.goToGame = true;
+            this.fadeInGame = true;
             this.mask.active = true;
         }.bind(this));
 
@@ -47,14 +47,17 @@ var MainMenu = Fire.Class({
         }
         this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
         this.maskRender.color.a = 1;
-        this.goToGame = false;
+        this.fadeInGame = false;
+        
+        Fire.Engine.preloadScene('Game');
     },
     lateUpdate: function () {
         if (this.mask.active) {
-            if (this.goToGame) {
+            if (this.fadeInGame) {
                 this.maskRender.color.a += Fire.Time.deltaTime;
                 if (this.maskRender.color.a > 1) {
                     Fire.Engine.loadScene('Game');
+                    this.enabled = false;	// stop calling loadScene anymore!
                 }
             }
             else {
