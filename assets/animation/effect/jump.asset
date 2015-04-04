@@ -2,7 +2,7 @@
   "__type__": "Fire.SpriteAnimationClip",
   "_name": "",
   "_objFlags": 0,
-  "wrapMode": 0,
+  "wrapMode": 1,
   "stopAction": 3,
   "speed": 1,
   "_frameRate": 60,
@@ -10,7 +10,7 @@
     {
       "__type__": "FrameInfo",
       "sprite": {
-        "__uuid__": "bcc1b746-4c3e-4775-b5ba-7646216de6aa"
+        "__uuid__": "25a0d477-7f81-4e7f-ade7-9bc1c1849bb5"
       },
       "frames": 5
     },

@@ -15,16 +15,16 @@
         },
         "trimX": 0,
         "trimY": 0,
-        "width": 900,
-        "height": 96,
+        "width": 864,
+        "height": 95,
         "texture": {
           "__uuid__": "d9a3c29d-d367-46fc-b8a1-fa504929e56c"
         },
         "rotated": false,
         "x": 0,
         "y": 0,
-        "rawWidth": 900,
-        "rawHeight": 96
+        "rawWidth": 864,
+        "rawHeight": 95
       },
       "meta": {
         "__type__": "Fire.SpriteMeta",
