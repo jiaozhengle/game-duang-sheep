@@ -53,16 +53,17 @@ var MainMenu = Fire.Class({
     },
     lateUpdate: function () {
         if (this.mask.active) {
+            var fadeStep = Fire.Time.deltaTime * 2;
             if (this.fadeInGame) {
-                this.maskRender.color.a += Fire.Time.deltaTime;
-                if (this.maskRender.color.a > 1) {
+                this.maskRender.color.a += fadeStep;
+                if (this.maskRender.color.a >= 1) {
                     Fire.Engine.loadScene('Game');
                     this.enabled = false;	// stop calling loadScene anymore!
                 }
             }
             else {
-                this.maskRender.color.a -= Fire.Time.deltaTime;
-                if (this.maskRender.color.a < 0) {
+                this.maskRender.color.a -= fadeStep;
+                if (this.maskRender.color.a <= 0) {
                     this.maskRender.color.a = 0;
                     this.mask.active = false;
                 }

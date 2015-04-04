@@ -55,27 +55,28 @@ var PipeGroupManager = Fire.Class({
     },
     // 碰撞检测
     collisionDetection: function (sheepRect) {
+        // 降低难度
+        sheepRect.xMin += 20;
+        sheepRect.xMax -= 20;
+        sheepRect.yMin += 15;
+        sheepRect.yMax -= 15;
+        
         for (var i = 0; i < this.pipeGroupList.length; ++i) {
-            // 上方障碍物
             var pipeGroupEntity = this.pipeGroupList[i];
+            // 上方障碍物
             var pipe = pipeGroupEntity.find('topPipe');
             var pipeRender = pipe.getComponent(Fire.SpriteRenderer)
             var pipeRect = pipeRender.getWorldBounds();
-						
-          	// 降低难度
-          	pipeRect.y += 50;
-          
+            
             if (Fire.Intersection.rectRect(sheepRect, pipeRect)) {
                 return true;
             }
-
+			
             // 下方障碍物
             pipe = pipeGroupEntity.find('bottomPipe');
             pipeRender = pipe.getComponent(Fire.SpriteRenderer);
             pipeRect = pipeRender.getWorldBounds();
           	
-          	// 降低难度
-          	pipeRect.y -= 50;
             if (Fire.Intersection.rectRect(sheepRect, pipeRect)) {
                 return true;
             }
