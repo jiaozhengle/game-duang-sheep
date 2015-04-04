@@ -17,6 +17,9 @@
         },
         "build-settings": {
             "enable": true
+        },
+        "check-update": {
+            "enable": true
         }
     },
     "globals": {}

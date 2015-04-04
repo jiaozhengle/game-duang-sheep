@@ -1,218 +1,220 @@
 var Sheep = require('Sheep');
-var Floor = require('Floor');
-var Collision = require('Collision');
-var GameOverWindow = require('GameOverWindow');
-var AudioControl = require('AudioControl');
-var Effect = require('Effect');
+var ScrollPicture = require('ScrollPicture');
+var PipeGroupManager = require('PipeGroupManager');
 
-var GameState = (function (t) {
-    t[t.ready = 0] = 'ready';
-    t[t.run = 1] = 'run';
-    t[t.over = 2] = 'over';
-    return t;
-})({});
-
-var Game = Fire.extend(Fire.Component, function () {
-    Game.instance = this;
+var GameState = Fire.defineEnum({
+    Ready: -1,
+    Run : -1,
+    Over: -1
 });
 
-Game.GameState = GameState;
-
-Game.instance = null;
-
-//-- 绵羊初始X坐标
-Game.prop('initSheepPos', new Fire.Vec2(-150, -180), Fire.ObjectType(Fire.Vec2));
-
-//-- 创建时管道初始X坐标
-Game.prop('initPipeGroupPos', new Fire.Vec2(600, 0), Fire.ObjectType(Fire.Vec2));
-
-Game.prop('createPipeTime', 5);
-
-Game.prop('gameSpeed', 0);
-
-Game.prototype.onLoad = function () {
-
-    this.fogJumpEffect = Fire.Entity.find('/Prefabs/fog_1');
-    this.tempAddFractionEff = Fire.Entity.find('/Prefabs/addFraction');
-    this.tempMask = Fire.Entity.find('/Prefabs/mask');
-
-    this.pipeGroup = Fire.Entity.find('/Game/PipeGroup');
-
-    //-- 游戏状态
-    this.gameState = GameState.run;
-
-    this.gameOverWindow = Fire.Entity.find('/GameOverWindow');
-
-    this.bg = Fire.Entity.find('/bg').getComponent(Floor);
-    this.floor = Fire.Entity.find('/floor').getComponent(Floor);
-    this.sheep = Fire.Entity.find('/sheep').getComponent(Sheep);
-
-    this.mask = Fire.Entity.find('/mask');
-    if (!this.mask) {
-        this.mask = Fire.instantiate(this.tempMask);
-        this.mask.name = 'mask';
-        this.mask.dontDestroyOnLoad = true;
-    }
-    this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
-
-
-    Fire.Input.on('mousedown', function (event) {
-        if (this.gameState === GameState.over) {
-            return;
+var Game = Fire.Class({
+    // 继承
+    extends: Fire.Component,
+    // 构造函数
+    constructor: function () {
+        // 游戏状态
+        this.gameState = GameState.Ready;
+        // 分数
+        this.score = 0;
+        //-- 得分特效
+        this.scoreEffect = null;
+        this.scoreTopPos = 0;
+        // 遮罩
+        this.mask = null;
+        this.maskRender = null;
+        //
+        Game.instance = this;
+    },
+    // 属性
+    properties: {
+        tempMask: {
+            default: null,
+            type: Fire.Entity
+        },
+        // 获取绵羊
+        sheep: {
+            default: null,
+            type: Sheep
+        },
+        // 获取背景
+        background: {
+            default: null,
+            type: ScrollPicture
+        },
+        // 获取地面
+        ground: {
+            default: null,
+            type: ScrollPicture
+        },
+        // 获取障碍物管理
+        pipeGroupMgr: {
+            default: null,
+            type: PipeGroupManager
+        },
+        // 获取gameOverMenu对象
+        gameOverMenu: {
+            default: null,
+            type: Fire.Entity
+        },
+        // 获取分数对象
+        scoreText: {
+            default: null,
+            type: Fire.BitmapText
+        },
+        readyAuido: {
+            default: null,
+            type: Fire.AudioSource
+        },
+        // 获取背景音效
+        gameBgAudio: {
+            default: null,
+            type: Fire.AudioSource
+        },
+        // 获取死亡音效
+        dieAudio: {
+            default: null,
+            type: Fire.AudioSource
+        },
+        // 获取失败音效
+        gameOverAudio: {
+            default: null,
+            type: Fire.AudioSource
+        },
+        // 获取得分音效
+        scoreAudio: {
+            default: null,
+            type: Fire.AudioSource
+        },
+        // 得分特效
+        tempDisappear: {
+            default: null,
+            type: Fire.Entity
+        },
+        // 加分预制
+        tempAddSorce:{
+            default: null,
+            type: Fire.Entity
         }
-        var Sheep = require('Sheep');
-        this.sheep.anim.play(this.sheep.jumpAnimState, 0);
-        this.sheep.sheepState = Sheep.SheepState.jump;
-        this.sheep.tempSpeed = this.sheep.speed;
-        AudioControl.jumpAuido.stop();
-        AudioControl.jumpAuido.play();
+    },
+    // 开始
+    onStart: function () {
+        this.gameState = GameState.Ready;
+        this.score = 0;
+        this.scoreText.text = this.score;
 
-        var pos = new Vec2(this.sheep.transform.x - 80, this.sheep.transform.y + 10);
-        Effect.create(this.fogJumpEffect, pos);
-    }.bind(this));
-
-    this.lastTime = 10;
-    this.pipeGroupList = [];
-    this.entity.on("destroy-PipeGroup", function (event) {
-        if (this.pipeGroupList) {
-            var index = this.pipeGroupList.indexOf(event.target);
-            this.pipeGroupList.splice(index, 1);
+        // 所有元素停止更新
+        this._pauseUpdate(false);
+        // 遮罩
+        this.mask = Fire.Entity.find('/mask');
+        if (!this.mask) {
+            this.mask = Fire.instantiate(this.tempMask);
+            this.mask.name = 'mask';
+            this.mask.dontDestroyOnLoad = true;
         }
-    }.bind(this));
-
-    //-- 分数
-    this.fraction = 0;
-    this.fractionBtmpFont = Fire.Entity.find('/fraction').getComponent(Fire.BitmapText);
-
-    //-- 音效
-    AudioControl.init();
-
-    //-- 特效
-    Effect.init();
-};
-
-Game.prototype.onStart = function () {
-    this.reset();
-};
-
-Game.prototype.reset = function () {
-    this.gameOverWindow.enabled = false;
-    this.fraction = 0;
-    this.fractionBtmpFont.text = this.fraction;
-    this.lastTime = Fire.Time.time + 10;
-    for (var i = 0, len = this.pipeGroupList.length; i < len; ++i) {
-        var pipeGroupEntity = this.pipeGroupList[i];
-        if (!pipeGroupEntity || pipeGroupEntity === undefined) {
-            continue;
+        this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
+    },
+    _pauseUpdate: function (enabled){
+        this.ground.enabled = enabled;
+        this.background.enabled = enabled;
+        for (var i = 0; i < this.pipeGroupMgr.pipeGroupList.length; ++i) {
+            var pipeGroup = this.pipeGroupMgr.pipeGroupList[i].getComponent('PipeGroup');
+            pipeGroup.enabled = enabled;
         }
-        pipeGroupEntity.destroy();
-    }
-    this.pipeGroupList = [];
-    this.sheep.init(this.initSheepPos);
-    this.gameState = GameState.ready;
-    AudioControl.gameOverAuido.stop();
-    AudioControl.hitAuido.stop();
-};
-
-Game.prototype.update = function () {
-
-    //-- 绵羊的更新
-    //-- 绵羊的更新
-    this.sheep.onRefresh();
-
-    switch (this.gameState) {
-        case GameState.ready:
-            if (this.mask.active) {
-                this.maskRender.color.a -= Fire.Time.deltaTime;
-                if (this.maskRender.color.a < 0.3) {
-                    AudioControl.playReadyGameBg();
-                }
-                if (this.maskRender.color.a <= 0) {
-                    this.mask.active = false;
-                    this.gameState = GameState.run;
-                }
-            }
-            break;
-        case GameState.run:
-            var gameOver = Collision.collisionDetection(this.sheep, this.pipeGroupList);
-            if (gameOver) {
-                AudioControl.gameAuido.stop();
-                AudioControl.gameOverAuido.play();
-                AudioControl.hitAuido.play();
-                this.sheep.anim.play(this.sheep.dieAnimState, 0);
-                this.sheep.sheepState = Sheep.SheepState.die;
-                this.gameState = GameState.over;
-                this.gameOverWindow.active = true;
-                this.gameOverWindow.getComponent(GameOverWindow).onRefresh();
+        this.pipeGroupMgr.enabled = enabled;
+    },
+    _playReadyGameBg: function () {
+        this.readyAuido.play();
+        this.readyAuido.onEnd = function () {
+            if(this.gameState === GameState.over){
                 return;
             }
-            //-- 每过一段时间创建管道
-            var curTime = Math.abs(Fire.Time.time - this.lastTime);
-            if (curTime >= this.createPipeTime) {
-                this.lastTime = Fire.Time.time;
-                this.createPipeGroup();
-            }
-            //-- 背景刷新
-            this.bg.onRefresh(this.gameSpeed);
-            //-- 地板刷新
-            this.floor.onRefresh(this.gameSpeed);
-            //-- 管道刷新
-            if (this.pipeGroupList && this.pipeGroupList.length > 0) {
-                var i = 0, len = this.pipeGroupList.length;
-                var pipeGroupEntity, pipeGropComp;
-                //-- 管道刷新
-                for (i = 0; i < len; ++i) {
-                    pipeGroupEntity = this.pipeGroupList[i];
-                    if (!pipeGroupEntity || pipeGroupEntity === undefined) {
-                        continue;
+            this.gameBgAudio.loop = true;
+            this.gameBgAudio.play();
+        }.bind(this);
+    },
+    // 更新
+    update: function () {
+        switch (this.gameState) {
+            case GameState.Ready:
+                if (this.mask.active) {
+                    this.maskRender.color.a -= Fire.Time.deltaTime;
+                    if (this.maskRender.color.a < 0.3) {
+                        this._playReadyGameBg();
                     }
-                    pipeGropComp = pipeGroupEntity.getComponent('PipeGroup');
-                    pipeGropComp.onRefresh(this.gameSpeed);
-                }
-                //-- 绵羊通过管道的计算 && 计算分数
-                for (i = 0; i < len; ++i) {
-                    pipeGroupEntity = this.pipeGroupList[i];
-                    if (!pipeGroupEntity || pipeGroupEntity === undefined) {
-                        continue;
-                    }
-                    pipeGropComp = pipeGroupEntity.getComponent('PipeGroup');
-                    var sheepX = (this.sheep.transform.x - this.sheep.sheepSpritRender.width / 2 );
-                    var pipeGroupX = (pipeGroupEntity.transform.x + pipeGropComp.pipeGroupWith / 2 );
-                    if (!pipeGropComp.hasPassed && sheepX > pipeGroupX) {
-                        pipeGropComp.hasPassed = true;
-                        this.fraction++;
-                        this.fractionBtmpFont.text = this.fraction;
-                        var initPos = new Vec2(this.sheep.transform.x - 30, this.sheep.transform.y + 50);
-                        Effect.createManuallyEffectUpMove(this.tempAddFractionEff, initPos, 100);
-                        AudioControl.pointAuido.play();
+                    if (this.maskRender.color.a <= 0) {
+                        this.mask.active = false;
+                        this.gameState = GameState.Run;
+                        this._pauseUpdate(true);
                     }
                 }
-            }
-            break;
-        case GameState.over:
-            if (this.mask.active) {
-                this.maskRender.color.a += Fire.Time.deltaTime;
-                if (this.maskRender.color.a > 1) {
-                    Fire.Engine.loadScene('MainMenu');
+                break;
+            case GameState.Run:
+                var sheepRect = this.sheep.renderer.getWorldBounds();
+                var gameOver = this.pipeGroupMgr.collisionDetection(sheepRect);
+                if (gameOver) {
+                    // 背景音效停止，死亡音效播放
+                    this.gameBgAudio.stop();
+                    this.dieAudio.play();
+                    this.gameOverAudio.play();
+
+                    this.gameState = GameState.Over;
+                    this.sheep.state = Sheep.State.Dead;
+
+                    this._pauseUpdate(false);
+
+                    this.gameOverMenu.active = true;
                 }
+                // 计算分数
+                this.updateSorce();
+                break;
+            default :
+                break;
+        }
+        this._updateScoreEffect();
+    },
+    // 更新分数
+    updateSorce: function () {
+        var nextPipeGroup = this.pipeGroupMgr.getNext();
+        if (nextPipeGroup) {
+            var sheepRect = this.sheep.renderer.getWorldBounds();
+            var pipeGroupRect = nextPipeGroup.bottomRenderer.getWorldBounds();
+            // 当绵羊的右边坐标越过水管右侧坐标
+            var crossed = sheepRect.xMin > pipeGroupRect.xMax;
+            if (crossed) {
+                // 分数+1
+                this.score++;
+                this.scoreText.text = this.score;
+                this.pipeGroupMgr.setAsPassed(nextPipeGroup);
+                // 分数增加音效
+                this.scoreAudio.play();
+
+                var pos = new Vec2(this.sheep.transform.x - 30, this.sheep.transform.y + 50);
+                this.scoreEffect = this._playScoreEffect(this.tempAddSorce, pos);
+                this.scoreTopPos = this.scoreEffect.transform.y + 100;
             }
-            break;
-        default :
-            break;
+        }
+    },
+    _playScoreEffect: function(tempEntity, pos) {
+        var effect = Fire.instantiate(tempEntity);
+        effect.transform.position = pos;
+        return effect;
+    },
+    _updateScoreEffect: function(){
+        if (this.scoreEffect) {
+            this.scoreEffect.transform.y += Fire.Time.deltaTime * 200;
+            if (this.scoreEffect.transform.y > this.scoreTopPos) {
+                var disappear = Fire.instantiate(this.tempDisappear);
+                var disappearAnim = disappear.getComponent(Fire.SpriteAnimation);
+                disappear.transform.position = this.scoreEffect.transform.position;
+                disappearAnim.play();
+
+                this.scoreEffect.destroy();
+                this.scoreEffect = null;
+                this.scoreTopPos = 0;
+            }
+        }
     }
+});
 
-    //-- 特效刷新
-    Effect.onRefresh();
-};
-
-//-- 创建管道组
-Game.prototype.createPipeGroup = function () {
-    var entity = new Fire.Entity();
-    var pipeGropComp = entity.addComponent('PipeGroup')
-    entity.parent = this.pipeGroup;
-    entity.transform.position = this.initPipeGroupPos;
-    pipeGropComp.create();
-    this.pipeGroupList.push(entity);
-};
-
-module.exports = Game;
+Game.instance = null;
