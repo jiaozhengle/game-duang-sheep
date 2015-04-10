@@ -4,7 +4,7 @@
   "_objFlags": 0,
   "wrapMode": 0,
   "stopAction": 0,
-  "speed": 1,
+  "speed": 1.8,
   "_frameRate": 60,
   "frameInfos": [
     {
@@ -12,7 +12,7 @@
       "sprite": {
         "__uuid__": "1b22d0dc-846d-4fc5-a13e-b1d59063796e"
       },
-      "frames": 10
+      "frames": 12
     },
     {
       "__type__": "FrameInfo",

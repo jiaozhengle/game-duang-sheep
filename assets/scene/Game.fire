@@ -1871,8 +1871,8 @@
     "_rotation": 0,
     "_scale": {
       "__type__": "Fire.Vec2",
-      "x": -1,
-      "y": 1
+      "x": -0.7,
+      "y": 0.7
     }
   },
   {
@@ -1893,7 +1893,7 @@
       "b": 1,
       "a": 1
     },
-    "customSize_": true,
+    "customSize_": false,
     "width_": 114,
     "height_": 79
   },
@@ -2384,7 +2384,7 @@
       "r": 1,
       "g": 1,
       "b": 1,
-      "a": 1
+      "a": 0.9
     },
     "customSize_": false,
     "width_": 100,

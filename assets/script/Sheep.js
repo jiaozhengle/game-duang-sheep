@@ -111,7 +111,7 @@ var Sheep = Fire.Class({
                 }
                 break;
             case Sheep.State.DropEnd:
-                if (!this.anim.isPlaying('dropEnd')) {
+                if (!this.anim.isPlaying('DropEnd')) {
                     this.state = State.Run;
                 }
                 break

@@ -40,13 +40,13 @@ var GameOverMenu = Fire.Class({
     // 更新
     update: function () {
         if (this.title.transform.y > 100) {
-            this.title.transform.y -= Fire.Time.deltaTime * 600;
+            this.title.transform.y -= Fire.Time.deltaTime * 400;
         }
         else {
             this.title.transform.y = 100;
         }
         if (this.panel.transform.y < 0) {
-            this.panel.transform.y += Fire.Time.deltaTime * 600;
+            this.panel.transform.y += Fire.Time.deltaTime * 500;
         }
         else {
             this.panel.transform.y = 0;
