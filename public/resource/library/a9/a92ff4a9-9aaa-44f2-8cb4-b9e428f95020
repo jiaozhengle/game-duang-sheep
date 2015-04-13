@@ -1,1 +1,6 @@
-{"__type__":"Fire.ScriptAsset","_name":"PipeGroupManager","_objFlags":0,"_rawext":"js"}
+{
+  "__type__": "Fire.ScriptAsset",
+  "_name": "PipeGroupManager",
+  "_objFlags": 0,
+  "_rawext": "js"
+}

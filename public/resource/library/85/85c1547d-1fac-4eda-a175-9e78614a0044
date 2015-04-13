@@ -1,1 +1,22 @@
-{"__type__":"Fire.Sprite","_name":"bird0_0","_objFlags":0,"pivot":{"__type__":"Fire.Vec2","x":0.5,"y":0.5},"trimX":6,"trimY":13,"width":34,"height":24,"texture":{"__uuid__":"a230bd88-607b-4ba2-8fb5-d89a7f4799c5"},"rotated":false,"x":6,"y":13,"rawWidth":48,"rawHeight":48}
+{
+  "__type__": "Fire.Sprite",
+  "_name": "bird0_0",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 6,
+  "trimY": 13,
+  "width": 34,
+  "height": 24,
+  "texture": {
+    "__uuid__": "a230bd88-607b-4ba2-8fb5-d89a7f4799c5"
+  },
+  "rotated": false,
+  "x": 6,
+  "y": 13,
+  "rawWidth": 48,
+  "rawHeight": 48
+}

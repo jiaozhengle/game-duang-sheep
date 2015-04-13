@@ -1,1 +1,37 @@
-{"__type__":"Fire.BitmapFont","_name":"font-number2","_objFlags":0,"texture":{"__uuid__":"1dfec130-7dbe-42d4-9d00-e51ddafbeab0"},"charInfos":[{"id":43,"y":0,"x":0,"width":24,"height":44,"xOffset":0,"yOffset":0,"xAdvance":24,"rotated":false},{"id":49,"y":0,"x":25,"width":24,"height":44,"xOffset":0,"yOffset":0,"xAdvance":24,"rotated":false}],"kernings":[],"baseLine":26,"lineHeight":32,"size":32,"face":"Arial"}
+{
+  "__type__": "Fire.BitmapFont",
+  "_name": "font-number2",
+  "_objFlags": 0,
+  "texture": {
+    "__uuid__": "1dfec130-7dbe-42d4-9d00-e51ddafbeab0"
+  },
+  "charInfos": [
+    {
+      "id": 43,
+      "y": 0,
+      "x": 0,
+      "width": 24,
+      "height": 44,
+      "xOffset": 0,
+      "yOffset": 0,
+      "xAdvance": 24,
+      "rotated": false
+    },
+    {
+      "id": 49,
+      "y": 0,
+      "x": 25,
+      "width": 24,
+      "height": 44,
+      "xOffset": 0,
+      "yOffset": 0,
+      "xAdvance": 24,
+      "rotated": false
+    }
+  ],
+  "kernings": [],
+  "baseLine": 26,
+  "lineHeight": 32,
+  "size": 32,
+  "face": "Arial"
+}

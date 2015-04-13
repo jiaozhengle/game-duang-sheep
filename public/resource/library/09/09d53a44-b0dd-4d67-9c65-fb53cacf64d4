@@ -1,1 +1,10 @@
-{"__type__":"Fire.Texture","_name":"bird2_0","_objFlags":0,"_rawext":"png","width":48,"height":48,"wrapMode":1,"filterMode":1}
+{
+  "__type__": "Fire.Texture",
+  "_name": "bird2_0",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 48,
+  "height": 48,
+  "wrapMode": 1,
+  "filterMode": 1
+}

@@ -134,7 +134,7 @@ var Game = Fire.Class({
         }.bind(this);
     },
     // 更新
-    update: function () {
+    lateUpdate: function () {
         switch (this.gameState) {
             case GameState.Ready:
                 if (this.mask.active) {

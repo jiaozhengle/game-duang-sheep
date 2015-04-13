@@ -1,1 +1,10 @@
-{"__type__":"Fire.Texture","_name":"text_game_over","_objFlags":0,"_rawext":"png","width":204,"height":54,"wrapMode":1,"filterMode":1}
+{
+  "__type__": "Fire.Texture",
+  "_name": "text_game_over",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 204,
+  "height": 54,
+  "wrapMode": 1,
+  "filterMode": 1
+}

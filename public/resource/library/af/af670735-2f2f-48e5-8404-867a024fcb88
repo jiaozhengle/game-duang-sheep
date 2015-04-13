@@ -1,1 +1,22 @@
-{"__type__":"Fire.Sprite","_name":"fx_fog05","_objFlags":0,"pivot":{"__type__":"Fire.Vec2","x":0.5,"y":0.5},"trimX":63,"trimY":25,"width":203,"height":97,"texture":{"__uuid__":"6c624271-b557-4cf2-8200-f0d30ca1e7f3"},"rotated":false,"x":63,"y":25,"rawWidth":341,"rawHeight":161}
+{
+  "__type__": "Fire.Sprite",
+  "_name": "fx_fog05",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 63,
+  "trimY": 25,
+  "width": 203,
+  "height": 97,
+  "texture": {
+    "__uuid__": "6c624271-b557-4cf2-8200-f0d30ca1e7f3"
+  },
+  "rotated": false,
+  "x": 63,
+  "y": 25,
+  "rawWidth": 341,
+  "rawHeight": 161
+}

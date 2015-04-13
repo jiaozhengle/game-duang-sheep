@@ -1,1 +1,22 @@
-{"__type__":"Fire.Sprite","_name":"sheep_run_01","_objFlags":0,"pivot":{"__type__":"Fire.Vec2","x":0.5,"y":0.5},"trimX":27,"trimY":24,"width":167,"height":112,"texture":{"__uuid__":"4e39f956-a488-4e94-976b-d1f0035e8dc8"},"rotated":false,"x":27,"y":24,"rawWidth":228,"rawHeight":159}
+{
+  "__type__": "Fire.Sprite",
+  "_name": "sheep_run_01",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 27,
+  "trimY": 24,
+  "width": 167,
+  "height": 112,
+  "texture": {
+    "__uuid__": "4e39f956-a488-4e94-976b-d1f0035e8dc8"
+  },
+  "rotated": false,
+  "x": 27,
+  "y": 24,
+  "rawWidth": 228,
+  "rawHeight": 159
+}

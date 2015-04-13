@@ -1,1 +1,6 @@
-{"__type__":"Fire.ScriptAsset","_name":"Sheep","_objFlags":0,"_rawext":"js"}
+{
+  "__type__": "Fire.ScriptAsset",
+  "_name": "Sheep",
+  "_objFlags": 0,
+  "_rawext": "js"
+}

@@ -1,1 +1,22 @@
-{"__type__":"Fire.Sprite","_name":"sheep_down_03","_objFlags":0,"pivot":{"__type__":"Fire.Vec2","x":0.5,"y":0.5},"trimX":25,"trimY":31,"width":165,"height":104,"texture":{"__uuid__":"d3eaab30-506b-42c2-8788-7f96a8112f9a"},"rotated":false,"x":25,"y":31,"rawWidth":228,"rawHeight":159}
+{
+  "__type__": "Fire.Sprite",
+  "_name": "sheep_down_03",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 25,
+  "trimY": 31,
+  "width": 165,
+  "height": 104,
+  "texture": {
+    "__uuid__": "d3eaab30-506b-42c2-8788-7f96a8112f9a"
+  },
+  "rotated": false,
+  "x": 25,
+  "y": 31,
+  "rawWidth": 228,
+  "rawHeight": 159
+}

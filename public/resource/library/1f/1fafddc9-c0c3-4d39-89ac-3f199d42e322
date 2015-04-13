@@ -1,1 +1,22 @@
-{"__type__":"Fire.Sprite","_name":"white","_objFlags":0,"pivot":{"__type__":"Fire.Vec2","x":0.5,"y":0.5},"trimX":0,"trimY":0,"width":32,"height":32,"texture":{"__uuid__":"880db29e-9794-4c15-91e9-11e84ab03263"},"rotated":false,"x":0,"y":0,"rawWidth":32,"rawHeight":32}
+{
+  "__type__": "Fire.Sprite",
+  "_name": "white",
+  "_objFlags": 0,
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 0,
+  "trimY": 0,
+  "width": 32,
+  "height": 32,
+  "texture": {
+    "__uuid__": "880db29e-9794-4c15-91e9-11e84ab03263"
+  },
+  "rotated": false,
+  "x": 0,
+  "y": 0,
+  "rawWidth": 32,
+  "rawHeight": 32
+}

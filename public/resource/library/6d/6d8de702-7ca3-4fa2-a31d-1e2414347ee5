@@ -1,1 +1,10 @@
-{"__type__":"Fire.Texture","_name":"fx_hit03","_objFlags":0,"_rawext":"png","width":215,"height":186,"wrapMode":1,"filterMode":1}
+{
+  "__type__": "Fire.Texture",
+  "_name": "fx_hit03",
+  "_objFlags": 0,
+  "_rawext": "png",
+  "width": 215,
+  "height": 186,
+  "wrapMode": 1,
+  "filterMode": 1
+}
