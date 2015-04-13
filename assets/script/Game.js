@@ -98,7 +98,7 @@ var Game = Fire.Class({
         }
     },
     // 开始
-    onStart: function () {
+    start: function () {
         this.gameState = GameState.Ready;
         this.score = 0;
         this.scoreText.text = this.score;
