@@ -11,7 +11,7 @@
         "pivot": {
           "__type__": "Fire.Vec2",
           "x": 0.5,
-          "y": 0.5
+          "y": 0.45
         },
         "trimX": 23,
         "trimY": 1,
