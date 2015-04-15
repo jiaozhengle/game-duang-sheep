@@ -44,9 +44,9 @@ var MainMenu = Fire.Class({
             this.mask = Fire.instantiate(this.tempMask);
             this.mask.name = 'mask';
             this.mask.dontDestroyOnLoad = true;
-            this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
-        	  this.maskRender.color.a = 1;
         }
+        this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
+        this.maskRender.color.a = 1;
        
         this.fadeInGame = false;
         

@@ -111,8 +111,8 @@ var Game = Fire.Class({
             this.mask = Fire.instantiate(this.tempMask);
             this.mask.name = 'mask';
             this.mask.dontDestroyOnLoad = true;
-            this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
         }
+        this.maskRender = this.mask.getComponent(Fire.SpriteRenderer);
     },
     _pauseUpdate: function (enabled){
         this.ground.enabled = enabled;
